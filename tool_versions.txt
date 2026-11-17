@@ -1,0 +1,3 @@
+Yosys 0.69+208 (git sha1 7b1913f4c, Release, Clang /usr/bin/clang++ 21.1.8)
+SBY v0.69
+3.2.4

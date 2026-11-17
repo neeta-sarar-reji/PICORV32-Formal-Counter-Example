@@ -1,0 +1,20 @@
+--- picorv32.v.orig	2026-11-18 00:14:21.308594410 +0530
++++ picorv32.v	2026-11-18 00:15:07.827684367 +0530
+@@ -1228,7 +1228,7 @@
+ 
+ 	generate if (TWO_CYCLE_ALU) begin
+ 		always @(posedge clk) begin
+-			alu_add_sub <= instr_sub ? reg_op1 - reg_op2 : reg_op1 + reg_op2;
++			alu_add_sub <= instr_sub ? reg_op1 - reg_op2 : (reg_op1 + reg_op2) & 32'h7FFFFFFF;
+ 			alu_eq <= reg_op1 == reg_op2;
+ 			alu_lts <= $signed(reg_op1) < $signed(reg_op2);
+ 			alu_ltu <= reg_op1 < reg_op2;
+@@ -1237,7 +1237,7 @@
+ 		end
+ 	end else begin
+ 		always @* begin
+-			alu_add_sub = instr_sub ? reg_op1 - reg_op2 : reg_op1 + reg_op2;
++			alu_add_sub = instr_sub ? reg_op1 - reg_op2 : (reg_op1 + reg_op2) & 32'h7FFFFFFF;
+ 			alu_eq = reg_op1 == reg_op2;
+ 			alu_lts = $signed(reg_op1) < $signed(reg_op2);
+ 			alu_ltu = reg_op1 < reg_op2;
